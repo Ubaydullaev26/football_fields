@@ -1,0 +1,27 @@
+version: '3'
+services:
+  web:
+    build: .
+    container_name: football_web
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:latest
+    container_name: football_postgres
+    environment:
+      POSTGRES_DB: football_booking_db
+      POSTGRES_USER: football_user
+      POSTGRES_PASSWORD: yourpassword
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
