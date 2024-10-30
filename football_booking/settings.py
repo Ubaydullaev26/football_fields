@@ -12,7 +12,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
+if os.name == 'nt':
+    VENV_BASE = os.environ['VIRTUAL_ENV']
+    os.environ['PATH'] = os.path.join(VENV_BASE, 'Lib\\site-packages\\osgeo') + ';' + os.environ['PATH']
+    os.environ['PROJ_LIB'] = os.path.join(VENV_BASE, 'Lib\\site-packages\\osgeo\\data\\proj') + ';' + os.environ['PATH']
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -45,6 +50,11 @@ INSTALLED_APPS = [
     "fields",
     "bookings",
    'drf_yasg',
+    'django.contrib.gis',
+    'drf_spectacular',
+    'leaflet',
+
+
 ]
 
 MIDDLEWARE = [
@@ -83,8 +93,8 @@ WSGI_APPLICATION = "football_booking.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "football_booking",
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        "NAME": "football",
         "USER": "postgres",
         "PASSWORD": "Tashkent@123",
         "HOST": "localhost",
