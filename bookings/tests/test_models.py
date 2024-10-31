@@ -19,6 +19,10 @@ class BookingModelTest(TestCase):
             field=self.field,
             start_time=datetime.now(),  
             end_time=datetime.now() + datetime.timedelta(hours=1),  
+<<<<<<< HEAD
             status='PENDING',  
+=======
+            status='PENDING',  # If you have a status field, set an appropriate value
+>>>>>>> 90272d13417a51418a3673ceb436f92ef0a1cfa9
         )
 
