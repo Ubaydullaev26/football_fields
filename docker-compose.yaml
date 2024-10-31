@@ -1,29 +1,40 @@
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: football_web
     command: python manage.py runserver 0.0.0.0:8000
-    networks:
-      static-network:
-        ipv4_address: 172.20.0.6
     volumes:
       - .:/code
     ports:
       - "8000:8000"
     depends_on:
-      - postgres
-  postgres:
-    image: postgres:latest
-    container_name: football_postgres
+      - db
+
+    networks:
+      - football_web
+  db:
+    container_name: db
+    build:
+      context: .
+      dockerfile: Dockerfile-db
+    restart: always
     environment:
-      POSTGRES_DB: football
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Tashkent@123
-      PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: db_name
     ports:
       - "5432:5432"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+      - database_volume:/var/lib/postgresql/data
+
+     networks:
+      - football_web
 
 volumes:
-  postgres_data:
+  database_volume:
+
+networks:
+  football_web:

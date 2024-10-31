@@ -96,10 +96,10 @@ WSGI_APPLICATION = "football_booking.wsgi.application"
 DATABASES = {
     "default": {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        "NAME": "football",
+        "NAME": "db_name",
         "USER": "postgres",
         "PASSWORD": "Tashkent@123",
-        "HOST": "football_postgres",
+        "HOST": "db",
         "PORT": "5432",
     }
 }
