@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import os
+import django_heroku
+import dj_database_url
 
 if os.name == 'nt':
     VENV_BASE = os.environ['VIRTUAL_ENV']
@@ -31,7 +33,7 @@ SECRET_KEY = "django-insecure-n3!e=30^nsy+l!&4gom(as4fsn1s@m&o#9asx%fxman(bp=ufv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = "users.User"
 
@@ -97,7 +99,7 @@ DATABASES = {
         "NAME": "football",
         "USER": "postgres",
         "PASSWORD": "Tashkent@123",
-        "HOST": "localhost",
+        "HOST": "football_postgres",
         "PORT": "5432",
     }
 }
@@ -139,6 +141,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+django_heroku.settings(locals())
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -3,6 +3,9 @@ services:
     build: .
     container_name: football_web
     command: python manage.py runserver 0.0.0.0:8000
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.6
     volumes:
       - .:/code
     ports:
@@ -13,9 +16,9 @@ services:
     image: postgres:latest
     container_name: football_postgres
     environment:
-      POSTGRES_DB: football_booking_db
-      POSTGRES_USER: football_user
-      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_DB: football
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Tashkent@123
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - postgres_data:/var/lib/postgresql/data
