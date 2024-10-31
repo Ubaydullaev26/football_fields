@@ -13,9 +13,8 @@ class BookingAPITest(APITestCase):
     def setUp(self):
         self.field = Field.objects.create(
             name="Test Field",
-            location="123 Test Location",  # Provide a value for location
+            location="123 Test Location",  
             hourly_rate=100,
             owner=self.owner,
             # Add other required fields here
         )
-        # Setup booking or other related objects if necessary
