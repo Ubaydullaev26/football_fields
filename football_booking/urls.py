@@ -1,5 +1,6 @@
 
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import path, include
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -23,8 +24,11 @@ schema_view = get_schema_view(
    public=True,
    permission_classes=(permissions.AllowAny,),
 )
+def home(request):
+    return HttpResponse("Welcome to the API")
 
 urlpatterns = [
+    path('', home),
     path('admin/', admin.site.urls),
     path('api/fields/', include('fields.urls')),
     path('api/bookings/', include('bookings.urls')),
