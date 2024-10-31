@@ -12,6 +12,8 @@ services:
       - "8000:8000"
     depends_on:
       - postgres
+    networks:
+      - football_web
   postgres:
     image: postgres:latest
     container_name: football_postgres
@@ -24,6 +26,10 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - football_web
 
 volumes:
   postgres_data:
+networks:
+  football_web:
