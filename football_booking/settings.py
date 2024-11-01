@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import os
-import dj_database_url
 
 if os.name == 'nt':
     VENV_BASE = os.environ['VIRTUAL_ENV']
@@ -96,13 +95,12 @@ DATABASES = {
     "default": {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         "NAME": "db_name",
-        "USER": "postgres",
-        "PASSWORD": "Tashkent@123",
+        "USER": "user",
+        "PASSWORD": "pass",
         "HOST": "db",
         "PORT": "5432",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

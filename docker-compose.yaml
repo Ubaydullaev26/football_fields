@@ -1,31 +1,35 @@
+version: '3.3'
+
 services:
-  web:
+  django:
+    container_name: web_truck
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: football_web
-    command: python manage.py runserver 0.0.0.0:8000
+      dockerfile: ./docker/Dockerfile
+    command: >
+      sh -c "
+             python manage.py migrate &
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - .:/code
+      - .:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
-    networks:
-      - football_web
 
   db:
     container_name: db
-    build:
-      context: .
-      dockerfile: Dockerfile-db
-    restart: always
+    image: postgis/postgis:14-3.1
+    volumes:
+      - postgres_data:/var/lib/postgresql/postgis_data
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: db_name
+        POSTGRES_USER: user
+        POSTGRES_PASSWORD: pass
+        POSTGRES_DB: db_name
     ports:
       - "5432:5432"
+    expose:
+      - 5432
 
 volumes:
   postgres_data:
